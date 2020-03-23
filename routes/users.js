@@ -8,16 +8,14 @@ router.get("/", (req, res) => {
 })
 
 router.get("/getById", (req, res) => {
-    userDAO.getUser(req.query.id, (err, result) => {
-        if(err) throw err;
-        res.send(result.rows);
+    userDAO.getUser(req.query.id, (result) => {
+        res.send(result);
     })
 })
 
 router.post("/add", (req, res) => {
     if (req.body["user_id"]) {
-        userDAO.addUser(req.body, (err, result) => {
-            if(err) throw err;
+        userDAO.addUser(req.body, (result) => {
             res.send("Added user with the ID " + req.body.user_id);
         })
     } else {
@@ -26,17 +24,15 @@ router.post("/add", (req, res) => {
 })
 
 router.post("/update", (req, res) => {
-    userDAO.updateUser(req.query.id, req.body, (err, result) => {
-        if(err) throw err;
+    userDAO.updateUser(req.query.id, req.body, (result) => {
         res.send("Updated user with the ID " + req.query.id);
     })
 
 })
 
 router.delete("/remove", (req, res) => {
-    userDAO.removeUser(req.query.id, (err, result) => {
-        if(err) throw err;
-        res.send(result.rows);
+    userDAO.removeUser(req.query.id, (result) => {
+        res.send("Removed user with id " + req.query.id)
     })
 })
 
