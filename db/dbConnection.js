@@ -23,7 +23,8 @@ String.prototype.format = function() {
 };
 
 const mysql = require("mysql");
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+    connectionLimit:10,
     host: "atalantaserver.mysql.database.azure.com",
     user: "millerk9@atalantaserver",
     password:"DanaScully2112!@!",
@@ -37,8 +38,14 @@ module.exports = function(statement, params, callback) {
     } else {
         newStatement = statement.format(params)        
     }
-    connection.query(newStatement, function(error, results, fields) {
-        if(error) throw error;
-        callback(results)
+    console.log(newStatement)
+    pool.getConnection(function(err, connection) {
+        if (err) throw err;
+        connection.query(newStatement, function(error, results, fields) {
+            callback(results)
+            connection.release();            
+            if(error) throw error;
+        })
     })
+
 }
