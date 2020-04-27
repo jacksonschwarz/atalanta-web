@@ -26,8 +26,8 @@ const mysql = require("mysql");
 var pool = mysql.createPool({
     connectionLimit:10,
     host: "atalantaserver.mysql.database.azure.com",
-    user: "millerk9@atalantaserver",
-    password:"DanaScully2112!@!",
+    user: "USERNAME_OBFUSCATED",
+    password:"PASSWORD_OBFUSCATED",
     database:"atalanta"
 })
 
